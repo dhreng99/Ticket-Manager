@@ -1,0 +1,6 @@
+<h2>Asset List</h2>
+<ul>
+  {% for asset in assets %}
+    <li>{{ asset.name }} - {{ asset.description }} - {{ asset.purchase_date }} - {{ asset.category }}</li>
+  {% endfor %}
+</ul>
