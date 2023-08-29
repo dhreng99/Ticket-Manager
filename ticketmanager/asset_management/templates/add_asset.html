@@ -1,6 +1,13 @@
+
 <h2>Add Asset</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
+  {% if form.name.errors %}
+    <div class="error">{{ form.name.errors }}</div>
+  {% endif %}
+  {% if form.purchase_date.errors %}
+    <div class="error">{{ form.purchase_date.errors }}</div>
+  {% endif %}
   <button type="submit">Save Asset</button>
 </form>

@@ -1,6 +1,10 @@
 <h2>Asset List</h2>
 <ul>
   {% for asset in assets %}
-    <li>{{ asset.name }} - {{ asset.description }} - {{ asset.purchase_date }} - {{ asset.category }}</li>
+    <li>
+      {{ asset.name }} - {{ asset.description }} - {{ asset.purchase_date }} - {{ asset.category }}
+      <a href="{% url 'update_asset' asset.id %}">Update</a>
+      <a href="{% url 'delete_asset' asset.id %}">Delete</a>
+    </li>
   {% endfor %}
 </ul>

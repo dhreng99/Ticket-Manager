@@ -37,8 +37,13 @@ def add_asset(request):
     if request.method == 'POST':
         form = AssetForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('asset_list')
+            # Custom validation - Check if the asset with the same name already exists.
+            name = form.cleaned_data['name']
+            if Asset.objects.filter(name=name).exists():
+                form.add_error('name', 'An asset with this name already exists.')
+            else:
+                form.save()
+                return redirect('asset_list')
     else:
         form = AssetForm()
     return render(request, 'add_asset.html', {'form': form})
