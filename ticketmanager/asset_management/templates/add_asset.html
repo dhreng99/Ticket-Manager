@@ -1,13 +1,23 @@
+{% extends 'base.html' %}
 
-<h2>Add Asset</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if form.name.errors %}
-    <div class="error">{{ form.name.errors }}</div>
-  {% endif %}
-  {% if form.purchase_date.errors %}
-    <div class="error">{{ form.purchase_date.errors }}</div>
-  {% endif %}
-  <button type="submit">Save Asset</button>
-</form>
+{% block content %}
+    <h2>Asset List</h2>
+    <ul>
+    {% for asset in assets %}
+        <li>{{ asset.name }} - {{ asset.description }} - {{ asset.purchase_date }} - {{ asset.category }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Add Asset</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if form.name.errors %}
+        <div class="error">{{ form.name.errors }}</div>
+    {% endif %}
+    {% if form.purchase_date.errors %}
+        <div class="error">{{ form.purchase_date.errors }}</div>
+    {% endif %}
+    <button type="submit"><i class="fas fa-save"></i> Save Asset</button>
+    </form>
+{% endblock %}

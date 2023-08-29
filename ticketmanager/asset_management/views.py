@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Asset, AssetCategory
-from .forms import AssetForm, AssetCategoryForm
+from .forms import AssetForm, AssetCategoryForm, CustomUserChangeForm
 
 def register(request):
     if request.method == 'POST':
@@ -70,3 +70,16 @@ def delete_asset(request, asset_id):
 
 def home(request):
     return render(request, 'home.html')
+
+@login_required
+def user_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+    else:
+        form = CustomUserChangeForm(instance=user)
+
+    return render(request, 'user_profile.html', {'user': user, 'form': form})

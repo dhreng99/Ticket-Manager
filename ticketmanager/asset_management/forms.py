@@ -1,5 +1,6 @@
 from django import forms
-from .models import Asset, AssetCategory
+from django.contrib.auth.forms import UserChangeForm
+from .models import Asset, AssetCategory, CustomUser
 from django.utils import timezone
 
 class AssetForm(forms.ModelForm):
@@ -17,3 +18,8 @@ class AssetCategoryForm(forms.ModelForm):
     class Meta:
         model = AssetCategory
         fields = ['name', 'description']
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'first_name', 'last_name', 'profile_picture', 'bio')  

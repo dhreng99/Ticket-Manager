@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}My Web Application{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  <script src="https://kit.fontawesome.com/b2fc35b26d.js" crossorigin="anonymous"></script>
+</head>
+</head>
+<body>
+    <nav class="navbar">
+      <div class="container">
+        <ul>
+          <li{% if request.path == '/' %} class="active"{% endif %}><a href="{% url 'home' %}">Home</a></li>
+          <li{% if request.path == '/assets/' %} class="active"{% endif %}>
+            {% comment %} <a href="#">Assets</a> {% endcomment %}
+            <ul>
+              <li><a href="{% url 'asset_list' %}">Asset List</a></li>
+              <li><a href="{% url 'add_asset' %}">Add Asset</a></li>
+              <li><a href="{% url 'user_profile' %}">User Profile</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  
+  <div class="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>
