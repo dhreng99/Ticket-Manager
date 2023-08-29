@@ -34,10 +34,10 @@ def asset_list(request):
 
 @permission_required('asset_management.can_add_asset')
 def add_asset(request):
+    categories = AssetCategory.objects.all()
     if request.method == 'POST':
         form = AssetForm(request.POST)
         if form.is_valid():
-            # Custom validation - Check if the asset with the same name already exists.
             name = form.cleaned_data['name']
             if Asset.objects.filter(name=name).exists():
                 form.add_error('name', 'An asset with this name already exists.')
@@ -46,7 +46,8 @@ def add_asset(request):
                 return redirect('asset_list')
     else:
         form = AssetForm()
-    return render(request, 'add_asset.html', {'form': form})
+
+    return render(request, 'add_asset.html', {'form': form, 'categories': categories})
 
 @permission_required('asset_management.can_change_asset')
 def update_asset(request, asset_id):

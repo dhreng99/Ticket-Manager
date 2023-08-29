@@ -1,23 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Asset List</h2>
-    <ul>
-    {% for asset in assets %}
-        <li>{{ asset.name }} - {{ asset.description }} - {{ asset.purchase_date }} - {{ asset.category }}</li>
-    {% endfor %}
-    </ul>
-
-    <h2>Add Asset</h2>
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if form.name.errors %}
-        <div class="error">{{ form.name.errors }}</div>
-    {% endif %}
-    {% if form.purchase_date.errors %}
-        <div class="error">{{ form.purchase_date.errors }}</div>
-    {% endif %}
-    <button type="submit"><i class="fas fa-save"></i> Save Asset</button>
-    </form>
+    <div class="container">
+        <h2>Add Asset</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Asset Name</label>
+                <input type="text" class="form-control" id="id_name" name="name" placeholder="Enter asset name" value="{{ form.name.value|default:'' }}">
+                {% if form.name.errors %}
+                    <div class="invalid-feedback">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="id_description" class="form-label">Asset Description</label>
+                <textarea class="form-control" id="id_description" name="description" rows="3" placeholder="Enter asset description">{{ form.description.value|default:'' }}</textarea>
+                {% if form.description.errors %}
+                    <div class="invalid-feedback">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="id_purchase_date" class="form-label">Purchase Date</label>
+                <input type="text" class="form-control datepicker" id="id_purchase_date" name="purchase_date" placeholder="YYYY-MM-DD" value="{{ form.purchase_date.value|default:'' }}">
+                {% if form.purchase_date.errors %}
+                    <div class="invalid-feedback">{{ form.purchase_date.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="id_category" class="form-label">Asset Category</label>
+                <select class="form-control" id="id_category" name="category">
+                    <option value="">Select category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.pk }}" {% if form.category.value == category.pk %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.category.errors %}
+                    <div class="invalid-feedback">{{ form.category.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Asset</button>
+        </form>
+    </div>
 {% endblock %}
