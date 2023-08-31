@@ -11,7 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
+        <div class="container d-flex justify-content-between">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -31,6 +31,9 @@
                     </li>
                 </ul>
             </div>
+            {% if user.is_authenticated %}
+                <div class="navbar-text">{{ user.username }}</div>
+            {% endif %}
         </div>
     </nav>
   <div class="content">

@@ -6,12 +6,18 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Asset, AssetCategory
 from .forms import AssetForm, AssetCategoryForm, CustomUserChangeForm
+from django.contrib.auth.models import Permission
 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user.user_permissions.add(
+                Permission.objects.get(codename='can_view_asset'),
+                Permission.objects.get(codename='can_add_asset'),
+                Permission.objects.get(codename='can_change_asset')
+            )
             return redirect('login')
     else:
         form = UserCreationForm()
