@@ -1,1 +1,13 @@
-<h2>Welcome to the IT Asset Management System</h2>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Welcome to Ticket Manager</h5>
+        <p class="card-text">Manage your IT assets and tickets with ease.</p>
+        <a href="{% url 'asset_list' %}" class="btn btn-primary">Get Started</a>
+    </div>
+</div>
+{% endblock %}

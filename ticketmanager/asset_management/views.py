@@ -5,13 +5,19 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Asset, AssetCategory
-from .forms import AssetForm, AssetCategoryForm
+from .forms import AssetForm, AssetCategoryForm, CustomUserChangeForm
+from django.contrib.auth.models import Permission
 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user.user_permissions.add(
+                Permission.objects.get(codename='can_view_asset'),
+                Permission.objects.get(codename='can_add_asset'),
+                Permission.objects.get(codename='can_change_asset')
+            )
             return redirect('login')
     else:
         form = UserCreationForm()
@@ -34,10 +40,10 @@ def asset_list(request):
 
 @permission_required('asset_management.can_add_asset')
 def add_asset(request):
+    categories = AssetCategory.objects.all()
     if request.method == 'POST':
         form = AssetForm(request.POST)
         if form.is_valid():
-            # Custom validation - Check if the asset with the same name already exists.
             name = form.cleaned_data['name']
             if Asset.objects.filter(name=name).exists():
                 form.add_error('name', 'An asset with this name already exists.')
@@ -46,7 +52,8 @@ def add_asset(request):
                 return redirect('asset_list')
     else:
         form = AssetForm()
-    return render(request, 'add_asset.html', {'form': form})
+
+    return render(request, 'add_asset.html', {'form': form, 'categories': categories})
 
 @permission_required('asset_management.can_change_asset')
 def update_asset(request, asset_id):
@@ -70,3 +77,16 @@ def delete_asset(request, asset_id):
 
 def home(request):
     return render(request, 'home.html')
+
+@login_required
+def user_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+    else:
+        form = CustomUserChangeForm(instance=user)
+
+    return render(request, 'user_profile.html', {'user': user, 'form': form})
