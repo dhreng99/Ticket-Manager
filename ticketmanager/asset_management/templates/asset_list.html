@@ -8,11 +8,13 @@
     {% for asset in assets %}
       <div class="card">
         <h3>{{ asset.name }}</h3>
-        <p>{{ asset.description }}</p>
+        <p>Description: {{ asset.description }}</p>
         <p>Purchase Date: {{ asset.purchase_date }}</p>
         <p>Category: {{ asset.category }}</p>
         <a href="{% url 'update_asset' asset.id %}"><i class="fas fa-edit"></i> Edit</a>
-        <a href="{% url 'delete_asset' asset.id %}"><i class="fas fa-trash-alt"></i> Delete</a>
+        {% if user.is_staff %}
+          <a href="{% url 'delete_asset' asset.id %}"><i class="fas fa-trash-alt"></i> Delete</a>
+        {% endif %}  
       </div>
     {% endfor %}
   </div>

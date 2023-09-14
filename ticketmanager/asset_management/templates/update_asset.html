@@ -1,16 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Update Asset</h2>
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if form.name.errors %}
-        <div class="error">{{ form.name.errors }}</div>
-    {% endif %}
-    {% if form.purchase_date.errors %}
-        <div class="error">{{ form.purchase_date.errors }}</div>
-    {% endif %}
-    <button type="submit"> Update Asset</button>
-    </form>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title">Update Asset</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Asset Name</label>
+                            <input type="text" class="form-control" id="id_name" name="name" value="{{ form.name.value }}">
+                            {% if form.name.errors %}
+                            <div class="text-danger">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_description" class="form-label">Asset Description</label>
+                            <textarea class="form-control" id="id_description" name="description" rows="3">{{ form.description.value }}</textarea>
+                            {% if form.description.errors %}
+                            <div class="text-danger">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_purchase_date" class="form-label">Purchase Date</label>
+                            <input type="date" class="form-control" id="id_purchase_date" name="purchase_date" value="{{ form.purchase_date.value }}">
+                            {% if form.purchase_date.errors %}
+                            <div class="text-danger">{{ form.purchase_date.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Asset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

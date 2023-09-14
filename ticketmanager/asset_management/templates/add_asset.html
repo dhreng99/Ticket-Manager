@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
                 <label for="id_purchase_date" class="form-label">Purchase Date</label>
-                <input type="text" class="form-control datepicker {% if form.purchase_date.errors %} is-invalid{% endif %}" id="id_purchase_date" name="purchase_date" placeholder="YYYY-MM-DD" value="{{ form.purchase_date.value|default:'' }}">
+                <input type="date" class="form-control datepicker {% if form.purchase_date.errors %} is-invalid{% endif %}" id="id_purchase_date" name="purchase_date" placeholder="YYYY-MM-DD" value="{{ form.purchase_date.value|default:'' }}">
                 {% if form.purchase_date.errors %}
                     <div class="invalid-feedback">{{ form.purchase_date.errors|join:", " }}</div>
                 {% endif %}

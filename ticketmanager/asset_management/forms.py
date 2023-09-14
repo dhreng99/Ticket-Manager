@@ -23,3 +23,9 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'first_name', 'last_name', 'profile_picture', 'bio')  
+        
+class AssetUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Asset
+        fields = ['name', 'description', 'purchase_date']
+                

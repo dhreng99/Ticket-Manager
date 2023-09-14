@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Asset, AssetCategory
-from .forms import AssetForm, AssetCategoryForm, CustomUserChangeForm
+from .forms import AssetForm, AssetCategoryForm, CustomUserChangeForm, AssetUpdateForm
 from django.contrib.auth.models import Permission
 
 def register(request):
@@ -59,12 +59,12 @@ def add_asset(request):
 def update_asset(request, asset_id):
     asset = get_object_or_404(Asset, id=asset_id)
     if request.method == 'POST':
-        form = AssetForm(request.POST, instance=asset)
+        form = AssetUpdateForm(request.POST, instance=asset)
         if form.is_valid():
             form.save()
             return redirect('asset_list')
     else:
-        form = AssetForm(instance=asset)
+        form = AssetUpdateForm(instance=asset)
     return render(request, 'update_asset.html', {'form': form})
 
 @permission_required('asset_management.can_delete_asset')
