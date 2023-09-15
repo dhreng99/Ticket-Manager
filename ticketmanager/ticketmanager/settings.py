@@ -118,10 +118,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/domeng/ticketmanager/ticketmanager/static'
+STATIC_ROOT = '/home/domeng/ticketmanager/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/domeng/ticketmanager/ticketmanager/media'
+MEDIA_ROOT = '/home/domeng/ticketmanager/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
