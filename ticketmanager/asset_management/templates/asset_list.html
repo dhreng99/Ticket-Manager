@@ -7,11 +7,17 @@
   <div class="asset-cards">
     {% for asset in assets %}
       <div class="card">
-        <h3>{{ asset.name }}</h3>
-        <p>Description: {{ asset.description }}</p>
+        <!-- Asset Name -->
+        <h3>{{ asset.name }}</h3>     
+        <!-- Asset Description -->
+        <p>Description: {{ asset.description }}</p>      
+        <!-- Purchase Date -->
         <p>Purchase Date: {{ asset.purchase_date }}</p>
+        <!-- Asset Category -->
         <p>Category: {{ asset.category }}</p>
+        <!-- Edit Asset Link -->
         <a href="{% url 'update_asset' asset.id %}"><i class="fas fa-edit"></i> Edit</a>
+        <!-- Delete Asset Link (only visible to admin users) -->
         {% if user.is_staff %}
           <a href="{% url 'delete_asset' asset.id %}"><i class="fas fa-trash-alt"></i> Delete</a>
         {% endif %}  

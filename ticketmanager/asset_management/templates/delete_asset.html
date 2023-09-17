@@ -6,6 +6,7 @@
       <div class="col-md-6 offset-md-3">
           <div class="card">
               <div class="card-header bg-danger text-white">
+                  <!-- Card Title -->
                   <h5 class="card-title">Delete Asset</h5>
               </div>
               <div class="card-body">
@@ -13,6 +14,7 @@
                   <form method="POST">
                       {% csrf_token %}
                       <button type="submit" class="btn btn-danger">Delete</button>
+                      <!-- Cancel Link (goes back to the asset list) -->
                       <a href="{% url 'asset_list' %}" class="btn btn-secondary">Cancel</a>
                   </form>
               </div>

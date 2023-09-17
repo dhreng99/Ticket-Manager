@@ -6,6 +6,7 @@
         <div class="col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-header bg-primary text-white">
+                    <!-- Card Title -->
                     <h2 class="card-title">Update Asset</h2>
                 </div>
                 <div class="card-body">
@@ -13,21 +14,27 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="id_name" class="form-label">Asset Name</label>
+                            <!-- Input field for Asset Name -->
                             <input type="text" class="form-control" id="id_name" name="name" value="{{ form.name.value }}">
+                            <!-- Display errors, if any -->
                             {% if form.name.errors %}
                             <div class="text-danger">{{ form.name.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="mb-3">
                             <label for="id_description" class="form-label">Asset Description</label>
+                            <!-- Textarea for Asset Description -->
                             <textarea class="form-control" id="id_description" name="description" rows="3">{{ form.description.value }}</textarea>
+                            <!-- Display errors, if any -->
                             {% if form.description.errors %}
                             <div class="text-danger">{{ form.description.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="mb-3">
                             <label for="id_purchase_date" class="form-label">Purchase Date</label>
+                            <!-- Input field for Purchase Date -->
                             <input type="date" class="form-control" id="id_purchase_date" name="purchase_date" value="{{ form.purchase_date.value }}">
+                            <!-- Display errors, if any -->
                             {% if form.purchase_date.errors %}
                             <div class="text-danger">{{ form.purchase_date.errors }}</div>
                             {% endif %}
