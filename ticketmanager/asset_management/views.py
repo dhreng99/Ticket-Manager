@@ -34,8 +34,17 @@ def user_login(request):
         if form.is_valid():
             login(request, form.get_user())
             return redirect('home')
+        else:
+            # Authentication failed, show error messages
+            if 'username' in form.errors:
+                messages.error(request, 'Username field is required.')
+            elif 'password' in form.errors:
+                messages.error(request, 'Password field is required.')
+            else:
+                messages.error(request, 'Invalid username or password.')
     else:
         form = AuthenticationForm()
+    
     return render(request, 'registration/login.html', {'form': form})
 
 # Displays a list of assets.
