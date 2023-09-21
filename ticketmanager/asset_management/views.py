@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Asset, AssetCategory
 from .forms import AssetForm, AssetCategoryForm, CustomUserChangeForm, AssetUpdateForm
 from django.contrib.auth.models import Permission
+from django.contrib import messages
 
 # Handles user registration.
 # Allows new users to register by creating a new account.
@@ -57,6 +58,7 @@ def add_asset(request):
                 form.add_error('name', 'An asset with this name already exists.')
             else:
                 form.save()
+                messages.success(request, 'Asset added successfully!')
                 return redirect('asset_list')
     else:
         form = AssetForm()
@@ -72,6 +74,7 @@ def update_asset(request, asset_id):
         form = AssetUpdateForm(request.POST, instance=asset)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Asset updated successfully!')
             return redirect('asset_list')
     else:
         form = AssetUpdateForm(instance=asset)
@@ -84,6 +87,7 @@ def delete_asset(request, asset_id):
     asset = get_object_or_404(Asset, id=asset_id)
     if request.method == 'POST':
         asset.delete()
+        messages.success(request, 'Asset deleted successfully!')
         return redirect('asset_list')
     return render(request, 'delete_asset.html', {'asset': asset})
 
