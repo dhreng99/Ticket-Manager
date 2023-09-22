@@ -37,9 +37,6 @@ pip install -r requirements.txt
 Username - Admin
 
 Password - Password123
-=======
-
-Password - Password123
 
 ## Database Schema
 
